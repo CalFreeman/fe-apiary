@@ -19,4 +19,4 @@ const MyApp = ({ Component, pageProps }:{Component:any, pageProps:any}) => (
   </>
 );
 
-export default MyApp
+ export default MyApp

@@ -12,9 +12,13 @@
   "dependencies": {
     "axios": "^0.25.0",
     "cors": "^2.8.5",
+    "cross-fetch": "^3.1.5",
+    "eventsource": "^2.0.0",
     "lazysizes": "^5.2.2",
     "next": "12.0.10",
+    "next-connect": "^0.12.2",
     "nextjs-cors": "^2.1.0",
+    "node": "^17.5.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "swr": "^0.3.0"
