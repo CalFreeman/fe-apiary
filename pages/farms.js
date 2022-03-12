@@ -15,7 +15,7 @@ const NewFarm = ({ apiary = [] }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const res = await fetch("/api/farm", {
+		const res = await fetch("/farm", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ farm: farm }),
@@ -39,32 +39,29 @@ const NewFarm = ({ apiary = [] }) => {
 
 	//const categoryOptions = categories.map((c) => (
 	//	<option key={c.id} value={c.id}>
-	//		{c.title}
+	//		{c.name}
 	//	</option>
 	//));
 
 	return (
 		<div>
 			<h1>Create New farm</h1>
-			<Link href="/">
+			<Link href="/farmss">
 				<button>
 					<a>All farm</a>
 				</button>
 			</Link>
 
 			{error && <h3>{error}</h3>}
-			{saved && <h3>Congrats! The farm '{farm.title}' was saved successfully.</h3>}
+			{saved && <h3>Congrats! The farm '{farm.name}' was saved successfully.</h3>}
 
 			{!saved && (
 				<form onSubmit={handleSubmit}>
-					<label htmlFor="title">farm Title</label>
-					<input type="text" id="title" name="title" placeholder="farm Title" value={farm.title || ""} onChange={handleChange} />
+					<label htmlFor="name">Farm Name</label>
+					<input type="text" id="name" name="name" placeholder="farm name" value={farm.name || ""} onChange={handleChange} />
 
-					<label htmlFor="duration">farm Duration</label>
-					<input type="text" id="duration" name="duration" placeholder="farm Duration" value={farm.duration || ""} onChange={handleChange} />
-
-					<label htmlFor="description">Description</label>
-					<textarea rows="10" id="description" name="description" placeholder="Description" value={farm.description} onChange={handleChange} />
+					<label htmlFor="location">Farm Location</label>
+					<input type="text" id="location" name="location" placeholder="farm location" value={farm.location || ""} onChange={handleChange} />
 
 					<input type="submit" value="Submit" />
 				</form>
