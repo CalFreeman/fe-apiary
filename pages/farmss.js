@@ -3,10 +3,11 @@ import Head from "next/head";
 import Link from "next/link";
 import FarmService from "../lib/services/farm-service"
 
-export default function Farm( farms ) {
-	const [farm, setfarms] = useState([farms]);
+export default function Farm( props ) {
+	const [farm, setfarms] = useState([props]);
 
 	const farmList = farm.map((farm) => (
+    
 		<tr key={farm.id}>
 			<th>{farm.name}</th>
 			<th>{farm.location}</th>
@@ -24,11 +25,7 @@ export default function Farm( farms ) {
 				</Link>
 				<table>
             <tbody>
-              <tr>
-					      <th style={{ width: "60%" }}>Name</th>
-					      <th style={{ width: "40%" }}>Location</th>
-              </tr>
-              <tr>
+              <tr key={farmList.key}>
                 {farmList}
               </tr>
             </tbody>
@@ -40,10 +37,11 @@ export default function Farm( farms ) {
 
 export const getServerSideProps = async () => {
 	const res = await FarmService.findAll();
-	const farms = await res.json();
+	const props = await res.json();
+  //console.log(props)
 	return {
 		props: { 
-      farms 
+      props 
     }
 	};
 };
