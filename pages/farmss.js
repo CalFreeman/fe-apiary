@@ -1,37 +1,49 @@
-import { useEffect, useState } from 'react'
+import React, { useState, useEffect } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import FarmService from "../lib/services/farm-service"
 
-export default function AllFarms({ farms }) {
-const[reactData, setReactData] = useState([]);
-  useEffect(() => {
-    fetch('http://localhost:8080/api/farms')
-    .then(res => res.json())
-    .then(data => {
-      setReactData(data);
-    }).catch((e) => {console.log(e)});
-  }, []);
+export default function Farm( farms ) {
+	const [farm, setfarms] = useState([farms]);
 
-  return (
-    <table>
-      <tr>
-        <th colSpan='3' className='topnav'>Rendered By Next JS | Server side rendered</th>
-      </tr>
-      {farms?.map((farm, index) => (
-        <tr>
-          <td>{farm.name}</td>
-          <td>{farm.location}</td>
-        </tr>
-      ))}
-    </table>
-  )
+	const farmList = farm.map((farm) => (
+		<tr key={farm.id}>
+			<th>{farm.name}</th>
+			<th>{farm.location}</th>
+		</tr>
+	));
+
+	return (
+		<div>
+			<div>
+				<h1>Farms</h1>
+				<Link href="/farms">
+					<button>
+						<a>New Farm</a>
+					</button>
+				</Link>
+				<table>
+            <tbody>
+              <tr>
+					      <th style={{ width: "60%" }}>Name</th>
+					      <th style={{ width: "40%" }}>Location</th>
+              </tr>
+              <tr>
+                {farmList}
+              </tr>
+            </tbody>
+				</table>
+			</div>
+		</div>
+	);
 }
-export async function getServerSideProps({params,req,res,query,preview,previewData,resolvedUrl,locale,locales,defaultLocale}) {
-  console.log('Logging : '+res);
-  const data = await fetch('http://localhost:8080/api/farms');
-  const farms = await data.json();
 
-  const result = Object.values(farms);
-  if (!result) {
-    return {notFound: true,}
-  }  
-  return { props: { result } }
-}
+export const getServerSideProps = async () => {
+	const res = await FarmService.findAll();
+	const farms = await res.json();
+	return {
+		props: { 
+      farms 
+    }
+	};
+};
