@@ -25,9 +25,7 @@ export default function Farm( props ) {
 				</Link>
 				<table>
             <tbody>
-              <tr key={farmList.key}>
-                {farmList}
-              </tr>
+             	{farmList}
             </tbody>
 				</table>
 			</div>
