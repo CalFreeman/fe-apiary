@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import FarmService from "../lib/services/farm-service"
+import { stringify } from "querystring";
 
 export default function Farm( props ) {
 	const [farm, setfarms] = useState([props]);
 
-	const farmList = farm.map((farm) => (
-    
-		<tr key={farm.id}>
+	const farmList = farm.map((farm, index) => (
+		<tr key={index}>
 			<th>{farm.name}</th>
 			<th>{farm.location}</th>
 		</tr>
@@ -23,10 +23,11 @@ export default function Farm( props ) {
 						<a>New Farm</a>
 					</button>
 				</Link>
+				{console.log("farm id" + JSON.stringify({farm}))}
 				<table>
-            <tbody>
-             	{farmList}
-            </tbody>
+             	 	<tbody>
+             	 	 	{farmList}
+             	 	</tbody>
 				</table>
 			</div>
 		</div>
