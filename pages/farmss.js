@@ -5,38 +5,39 @@ import FarmService from "../lib/services/farm-service"
 export default function Farm( props ) {
  	const [farm, setfarms] = useState([props]);
 
- 	//
- 	console.log(JSON.stringify(farm));
- 	console.log(farm[0].data.content[0])
- 	if (farm.hasOwnProperty("id")){
- 	 	console.log(farm.id);          
- 	}
-	//
-	 
+ 	//console.log(JSON.stringify(farm));
+ 	//console.log(farm[0].data.content[3])
+
 	const farmList = farm.map((f, i) => (
-		<tbody key={i}>
-			<tr >{f.id}</tr>
-			<tr >{f.name}</tr>
-			<tr >{f.location}</tr>
-		</tbody>
-		
+		<table key={i}>
+			<thead >
+			 	<tr>
+			 		<th>id:  </th>
+			 		<th>name:  </th>
+			 		<th>location:  </th>
+			 	</tr>
+		 	</thead>
+		 	<tbody>
+			 	<tr >
+			 	 	<td>{f.data.content[i].id}  </td>
+			 	 	<td>{f.data.content[i].name}  </td>
+			 	 	<td>{f.data.content[i].location}  </td>
+			 	</tr>
+		 	</tbody>
+		</table>
 	));
 
-	//console.log(typeof farmList);
-	//console.log("My obj: ", farmList);
 
 	return (
 		<div>
 			<div>
 				<h1>Farms</h1>
+				{farmList}
 				<Link href="/farms">
 					<button>
 						<a>New Farm</a>
 					</button>
-				</Link>
-				<table>				
-					{farmList}
- 		 	  	</table>
+				</Link>			
 			</div>
 		</div>
 	);
