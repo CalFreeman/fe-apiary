@@ -4,15 +4,19 @@ import FarmService from "../lib/services/farm-service"
 
 export default function Farm( props ) {
 	const [farm, setfarms] = useState([props]);
+
 	console.log(JSON.stringify(farm));
-	const farmList = farm.map((farm, index) => (
-		<tr key={index}>
-			<th>{farm.id}</th>
-			<th>{farm.name}</th>
-			<th>{farm.location}</th>
-		</tr>
+	const farmList = farm.map((farm, i) => (
+		<tbody key={i}>
+			<tr >{farm.id}</tr>
+			<tr >{farm.name}</tr>
+			<tr >{farm.location}</tr>
+		</tbody>
 		
 	));
+
+	//console.log(typeof farmList);
+	//console.log("My obj: ", farmList);
 
 	return (
 		<div>
@@ -23,11 +27,9 @@ export default function Farm( props ) {
 						<a>New Farm</a>
 					</button>
 				</Link>
-				<table>
-             	 	<tbody>
-             	 	    {farmList}
-             	 	</tbody>
-				</table>
+				<table>				
+					{farmList}
+ 		 	  	</table>
 			</div>
 		</div>
 	);
@@ -35,9 +37,9 @@ export default function Farm( props ) {
 
 export const getServerSideProps = async () => {
 	const res = await FarmService.findAll();
-	const props = await res.json();
-   	console.log(props)
+	const data = await res.json();
+   	//console.log(props)
 	return {
-	 	props: { props }
+	 	props: { data }
 	};
 };
