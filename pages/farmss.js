@@ -3,14 +3,21 @@ import Link from "next/link";
 import FarmService from "../lib/services/farm-service"
 
 export default function Farm( props ) {
-	const [farm, setfarms] = useState([props]);
+ 	const [farm, setfarms] = useState([props]);
 
-	console.log(JSON.stringify(farm));
-	const farmList = farm.map((farm, i) => (
+ 	//
+ 	console.log(JSON.stringify(farm));
+ 	console.log(farm[0].data.content[0])
+ 	if (farm.hasOwnProperty("id")){
+ 	 	console.log(farm.id);          
+ 	}
+	//
+	 
+	const farmList = farm.map((f, i) => (
 		<tbody key={i}>
-			<tr >{farm.id}</tr>
-			<tr >{farm.name}</tr>
-			<tr >{farm.location}</tr>
+			<tr >{f.id}</tr>
+			<tr >{f.name}</tr>
+			<tr >{f.location}</tr>
 		</tbody>
 		
 	));
