@@ -1,63 +1,45 @@
 import React, { useState, useEffect } from "react";
-import Head from "next/head";
 import Link from "next/link";
-import FarmService from "../lib/services/farm-service";
+import FarmService from "../lib/services/farm-service"
 
-export default function Farm({ initialFarms = [] }) {
-	const [farms, setfarms] = useState(initialFarms);
+export default function Farm( props ) {
+ 	const [farm, setfarms] = useState([props]);
 
-	useEffect(() => {
-		let eventSource = new EventSource("/api/farms");
+ 	//console.log(JSON.stringify(farm));
+	//console.log(farm[0].data.content.length)
+ 	//console.log(farm[0].data.content[3])
+	//console.log(farm)
 
-		eventSource.onopen = (e) => {
-			console.log("listen to api-sse endpoint", e);
-		};
-
-		eventSource.onmessage = (e) => {
-			const farm = JSON.parse(e.data);
-
-			if (!farms.includes(farm)) {
-				setFarms((farms) => [...farms, farm]);
-			}
-		};
-
-		eventSource.onerror = (e) => {
-			console.log("error", e);
-		};
-
-		return () => {
-			eventSource.close();
-			eventSource = null;
-		};
-	}, []);
-
-	const farmList = farms.map((farm) => (
-		<tr key={farm.id}>
-			<th>{farm.name}</th>
-			<th>{farm.location}</th>
-		</tr>
+	const farmList = farm[0].data.content.map((f, i) => (
+		<table key={i}>
+			<thead >
+			 	<tr>
+			 		<th>id:  </th>
+			 		<th>name:  </th>
+			 		<th>location:  </th>
+			 	</tr>
+		 	</thead>
+		 	<tbody>
+			 	<tr >
+			 	 	<td>{f.id}  </td>
+			 	 	<td>{f.name}  </td>
+			 	 	<td>{f.location}  </td>
+			 	</tr>
+		 	</tbody>
+		</table>
 	));
+
 
 	return (
 		<div>
 			<div>
 				<h1>Farms</h1>
+				{farmList}
 				<Link href="/farms">
 					<button>
 						<a>New Farm</a>
 					</button>
-				</Link>
-				<table>
-                    <tbody>
-                        <tr>
-					        <th style={{ width: "60%" }}>Name</th>
-					        <th style={{ width: "40%" }}>Location</th>
-                        </tr>
-                        <tr>
-                        {farmList}
-                        </tr>
-                    </tbody>
-				</table>
+				</Link>			
 			</div>
 		</div>
 	);
@@ -65,10 +47,9 @@ export default function Farm({ initialFarms = [] }) {
 
 export const getServerSideProps = async () => {
 	const res = await FarmService.findAll();
-	const farms = await res.json();
+	const data = await res.json();
+   	//console.log(props)
 	return {
-		props: { 
-            farms 
-        },
+	 	props: { data }
 	};
 };

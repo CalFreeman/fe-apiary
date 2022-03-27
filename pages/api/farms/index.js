@@ -10,7 +10,8 @@ const API_HOST = process.env.API_HOST;
 const stream = async (req, res) => {
 	console.log("Conenct to SSE stream");
 
-	let eventSource = new EventSource(`${process.env.API_HOST}/farms/sse`);
+ 	var eventSourceInitDict = {https: {rejectUnauthorized: false}};
+	let eventSource = new EventSource(`${process.env.API_HOST}/farms/sse`, eventSourceInitDict);
 
 	eventSource.onopen = (e) => {
 		console.log("listen to see endpoint now", e);
@@ -33,7 +34,8 @@ const stream = async (req, res) => {
 };
 
 const sseMiddleware = (req, res, next) => {
-	res.setHeader("Content-Type", "text/event-stream");
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	res.setHeader("Cache-Control", "no-cache");
 	res.flushHeaders();
 
@@ -53,7 +55,7 @@ const createFarmHandler = async (req, res) => {
 	const farm = req.body.farm;
 	const response = await FarmService.create(farm);
 	if (response.status === 201) {
-		res.json({ message: "ok" });
+		res.json({ message: "okokokokokokok" });
 	} else {
 		res.statusCode(response.status).json({ status: response.status, message: response.statusText });
 	}
