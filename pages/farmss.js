@@ -6,9 +6,11 @@ export default function Farm( props ) {
  	const [farm, setfarms] = useState([props]);
 
  	//console.log(JSON.stringify(farm));
+	//console.log(farm[0].data.content.length)
  	//console.log(farm[0].data.content[3])
+	//console.log(farm)
 
-	const farmList = farm.map((f, i) => (
+	const farmList = farm[0].data.content.map((f, i) => (
 		<table key={i}>
 			<thead >
 			 	<tr>
@@ -19,9 +21,9 @@ export default function Farm( props ) {
 		 	</thead>
 		 	<tbody>
 			 	<tr >
-			 	 	<td>{f.data.content[i].id}  </td>
-			 	 	<td>{f.data.content[i].name}  </td>
-			 	 	<td>{f.data.content[i].location}  </td>
+			 	 	<td>{f.id}  </td>
+			 	 	<td>{f.name}  </td>
+			 	 	<td>{f.location}  </td>
 			 	</tr>
 		 	</tbody>
 		</table>
