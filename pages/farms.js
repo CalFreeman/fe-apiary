@@ -14,15 +14,9 @@ const NewFarm = ({ apiary = [] }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		//console.log(farm)
+		console.log(farm)
 
-		//const res = await fetch("/api/farm", {
-		//	method: "POST",
-		//	headers: { "Content-Type": "application/json" },
-		//	body: JSON.stringify({ farm: farm }),
-		//});
-
-		FarmService.create(farm)
+		let farm = create(farm);
 		//if (res.ok) {
 		//	setSaved(true);
 		//} else {
@@ -69,7 +63,7 @@ const NewFarm = ({ apiary = [] }) => {
 };
 
 export const getServerSideProps = async () => {
-	const res = await FarmService.findAll();
+	const res = await FarmService.create();
 	const farms = await res.json();
 
 	return { props: { farms } };
