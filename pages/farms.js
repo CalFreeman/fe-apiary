@@ -14,17 +14,14 @@ const NewFarm = ({ apiary = [] }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		console.log(farm)
 
-		const res = await fetch("/farm", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ farm: farm }),
-		});
-		if (res.ok) {
-			setSaved(true);
-		} else {
-			setError(`Error ${res.status} :: ${res.statusText}`);
-		}
+		let farm = create(farm);
+		//if (res.ok) {
+		//	setSaved(true);
+		//} else {
+		//	setError(`Error ${res.status} :: ${res.statusText}`);
+		//}
 	};
 
 	const handleChange = (e) => {
@@ -37,21 +34,16 @@ const NewFarm = ({ apiary = [] }) => {
 		}));
 	};
 
-	//const categoryOptions = categories.map((c) => (
-	//	<option key={c.id} value={c.id}>
-	//		{c.name}
-	//	</option>
-	//));
-
 	return (
 		<div>
-			<h1>Create New farm</h1>
+			<h1>All farms</h1>
 			<Link href="/farmss">
 				<button>
-					<a>All farm</a>
+					<a>All farms</a>
 				</button>
 			</Link>
 
+			<h1>New farm</h1>
 			{error && <h3>{error}</h3>}
 			{saved && <h3>Congrats! The farm '{farm.name}' was saved successfully.</h3>}
 
@@ -71,7 +63,7 @@ const NewFarm = ({ apiary = [] }) => {
 };
 
 export const getServerSideProps = async () => {
-	const res = await FarmService.findAll();
+	const res = await FarmService.create();
 	const farms = await res.json();
 
 	return { props: { farms } };

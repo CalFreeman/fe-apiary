@@ -29,7 +29,6 @@ export default function Farm( props ) {
 		</table>
 	));
 
-
 	return (
 		<div>
 			<div>
