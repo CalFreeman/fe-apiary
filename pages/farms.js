@@ -14,14 +14,17 @@ const NewFarm = ({ apiary = [] }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(farm)
 
-		let farm = create(farm);
-		//if (res.ok) {
-		//	setSaved(true);
-		//} else {
-		//	setError(`Error ${res.status} :: ${res.statusText}`);
-		//}
+		const res = await fetch("/api/farms", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ farm: farm }),
+		});
+		if (res.ok) {
+			setSaved(true);
+		} else {
+			setError(`Error ${res.status} :: ${res.statusText}`);
+		}
 	};
 
 	const handleChange = (e) => {
