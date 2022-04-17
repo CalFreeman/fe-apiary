@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import FarmService from "../lib/services/farm-service";
 
-const NewFarm = ({ apiary = [] }) => {
+const NewFarm = ( props ) => {
 	const emptyFarm = {
 		name: null,
 		location: null,
@@ -17,11 +17,7 @@ const NewFarm = ({ apiary = [] }) => {
 		console.log(farm)
 
 		let farm = create(farm);
-		//if (res.ok) {
-		//	setSaved(true);
-		//} else {
-		//	setError(`Error ${res.status} :: ${res.statusText}`);
-		//}
+
 	};
 
 	const handleChange = (e) => {
