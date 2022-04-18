@@ -1,11 +1,7 @@
-//import dbConnect from '../../../utils/dbConnect';
-//import Farm from '../../../models/Farm';
-//dbConnect();
-//const fetch = require('cross-fetch');
 import nextConnect from "next-connect";
 import FarmService from "../../../lib/services/farm-service";
 import EventSource from "eventsource";
-const API_HOST = process.env.API_HOST;
+const API_HOST = process.env.REACT_APP_API_HOST;
 
 const stream = async (req, res) => {
 	console.log("Conenct to SSE stream");
