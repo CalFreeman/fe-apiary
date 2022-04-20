@@ -4,8 +4,8 @@ import FarmService from "../lib/services/farm-service";
 
 const NewFarm = ( props ) => {
 	const emptyFarm = {
-		name: null,
-		location: null,
+		"name": null,
+		"location": null,
 	};
 
 	const [farm, setFarm] = useState(emptyFarm);
@@ -14,9 +14,11 @@ const NewFarm = ( props ) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(farm)
+		console.log(e)
 
-		let farm = create(farm);
+		console.log(emptyFarm)
+
+		let farm = await FarmService.create(e);
 
 	};
 
@@ -58,11 +60,5 @@ const NewFarm = ( props ) => {
 	);
 };
 
-export const getServerSideProps = async () => {
-	const res = await FarmService.create();
-	const farms = await res.json();
-
-	return { props: { farms } };
-};
 
 export default NewFarm;
