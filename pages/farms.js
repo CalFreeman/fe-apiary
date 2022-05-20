@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import FarmService from "../lib/services/farm-service";
 
-const NewFarm = ({ apiary = [] }) => {
+export default function NewFarm ({ apiary = [] }){
 	const emptyFarm = {
 		name: null,
 		location: null,
@@ -18,7 +18,7 @@ const NewFarm = ({ apiary = [] }) => {
 		const res = await fetch("/api/farms", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ farm: farm }),
+			body: JSON.stringify( { farm: farm }),
 		});
 		if (res.ok) {
 			setSaved(true);
@@ -30,7 +30,7 @@ const NewFarm = ({ apiary = [] }) => {
 	const handleChange = (e) => {
 		e.preventDefault();
 
-		const { name, value } = e.target;
+		const { name, value } = e.target; 
 		setFarm((prevState) => ({
 			...prevState,
 			[name]: value,
@@ -68,8 +68,6 @@ const NewFarm = ({ apiary = [] }) => {
 export const getServerSideProps = async () => {
 	const res = await FarmService.create();
 	const farms = await res.json();
-
+   	//console.log(apiary)
 	return { props: { farms } };
 };
-
-export default NewFarm;
