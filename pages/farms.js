@@ -14,9 +14,11 @@ const NewFarm = ( props ) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(e)
 
-		console.log(emptyFarm)
+		console.log(e)
+		console.log("hello world")
+		console.log(e.target[0].value)
+		console.log(e.target[1].value)
 
 		let farm = await FarmService.create(e);
 
@@ -48,12 +50,12 @@ const NewFarm = ( props ) => {
 			{!saved && (
 				<form onSubmit={handleSubmit}>
 					<label htmlFor="name">Farm Name</label>
-					<input type="text" id="name" name="name" placeholder="farm name" value={farm.name || ""} onChange={handleChange} />
+					<input type="text" id="name" name="name" placeholder="farm name" value={farm.name || ""} onChange={handleChange} required />
 
 					<label htmlFor="location">Farm Location</label>
-					<input type="text" id="location" name="location" placeholder="farm location" value={farm.location || ""} onChange={handleChange} />
+					<input type="text" id="location" name="location" placeholder="farm location" value={farm.location || ""} onChange={handleChange} required />
 
-					<input type="submit" value="Submit" />
+					<button type="submit">Submit</button>
 				</form>
 			)}
 		</div>
