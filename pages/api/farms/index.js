@@ -1,7 +1,3 @@
-//import dbConnect from '../../../utils/dbConnect';
-//import Farm from '../../../models/Farm';
-//dbConnect();
-//const fetch = require('cross-fetch');
 import nextConnect from "next-connect";
 import FarmService from "../../../lib/services/farm-service";
 import EventSource from "eventsource";

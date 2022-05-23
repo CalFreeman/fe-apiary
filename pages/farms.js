@@ -19,9 +19,12 @@ const NewFarm = ( props ) => {
 		console.log("hello world")
 		console.log(e.target[0].value)
 		console.log(e.target[1].value)
-
-		let farm = await FarmService.create(e);
-
+		console.log('apiHOST: ', process.env.API_HOST);
+		//try {
+			let result = await FarmService.create(e);
+		//} catch (error) {
+        // 	console.log(error)
+    	//}
 	};
 
 	const handleChange = (e) => {
@@ -61,6 +64,5 @@ const NewFarm = ( props ) => {
 		</div>
 	);
 };
-
 
 export default NewFarm;
