@@ -12,19 +12,19 @@ const NewFarm = ( props ) => {
 	const [saved, setSaved] = useState(false);
 	const [error, setError] = useState(null);
 
-	const handleSubmit = async (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
-
-		console.log(e)
+		const { name, value } = e.target;
+		setFarm((prevState) => ({
+			...prevState,
+			[name]: value,
+		}));
 		console.log("hello world")
-		console.log(e.target[0].value)
-		console.log(e.target[1].value)
-		console.log('apiHOST: ', process.env.API_HOST);
-		//try {
-			let result = await FarmService.create(e);
-		//} catch (error) {
-        // 	console.log(error)
-    	//}
+		console.log(farm.name)
+		console.log(farm.location)
+		console.log(farm)
+		const result = await FarmService.create(farm);
+		console.log(result)
 	};
 
 	const handleChange = (e) => {
@@ -51,7 +51,7 @@ const NewFarm = ( props ) => {
 			{saved && <h3>Congrats! The farm '{farm.name}' was saved successfully.</h3>}
 
 			{!saved && (
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={onSubmit}>
 					<label htmlFor="name">Farm Name</label>
 					<input type="text" id="name" name="name" placeholder="farm name" value={farm.name || ""} onChange={handleChange} required />
 

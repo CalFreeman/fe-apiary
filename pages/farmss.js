@@ -47,7 +47,6 @@ export default function Farm( props ) {
 export const getServerSideProps = async () => {
 	const res = await FarmService.findAll();
 	const data = await res.json();
-   	//console.log(props)
 	return {
 	 	props: { data }
 	};
